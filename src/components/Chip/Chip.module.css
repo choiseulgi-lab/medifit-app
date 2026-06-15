@@ -1,0 +1,29 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  height: 34px;
+  padding: 0 var(--spacing-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text-gray);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chip:active {
+  transform: scale(0.96);
+}
+
+.active {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}

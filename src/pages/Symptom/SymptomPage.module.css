@@ -1,0 +1,457 @@
+/* ── Progress bar ── */
+.progress {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.progressStep {
+  flex: 1;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-bg-muted);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  transition: width var(--transition-base);
+}
+
+.progressLabel {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  white-space: nowrap;
+  margin-left: var(--spacing-2);
+}
+
+/* ── Page scroll ── */
+.page {
+  overflow-y: auto;
+  padding-bottom: 140px;
+}
+
+/* ── Mode toggle ── */
+.modeToggle {
+  display: flex;
+  margin: var(--spacing-4) var(--spacing-4) 0;
+  background-color: var(--color-bg-muted);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+}
+
+.modeBtn {
+  flex: 1;
+  height: 36px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
+}
+
+.modeBtn.modeBtnActive {
+  background-color: var(--color-bg);
+  color: var(--color-text-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Body section ── */
+.bodySection {
+  padding: var(--spacing-4) var(--spacing-4) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.faceToggle {
+  display: flex;
+  background-color: var(--color-bg-muted);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  gap: 3px;
+}
+
+.faceBtn {
+  padding: 5px 18px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
+}
+
+.faceBtn.faceBtnActive {
+  background-color: var(--color-bg);
+  color: var(--color-text-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* ── Symptom chips (from body part) ── */
+.symptomArea {
+  width: 100%;
+  margin-top: var(--spacing-3);
+  padding: var(--spacing-4);
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  animation: fadeSlideUp 0.2s ease;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.symptomAreaLabel {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.symptomChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.symptomChip {
+  height: 34px;
+  padding: 0 var(--spacing-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text-gray);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.symptomChip:active { transform: scale(0.95); }
+
+.symptomChipActive {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.symptomChipDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Search section ── */
+.searchSection {
+  padding: var(--spacing-4) var(--spacing-4) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.searchInputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--spacing-3);
+  color: var(--color-text-muted);
+  display: flex;
+}
+
+.searchInput {
+  width: 100%;
+  height: var(--input-height);
+  padding: 0 var(--spacing-4) 0 44px;
+  background-color: var(--color-bg-subtle);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--input-radius);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body1);
+  color: var(--color-text-dark);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.searchInput::placeholder { color: var(--color-text-muted); }
+.searchInput:focus {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg);
+}
+
+.searchSectionTitle {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-gray);
+}
+
+.popularChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+/* ── Divider ── */
+.divider {
+  height: 8px;
+  background-color: var(--color-bg-muted);
+  margin: var(--spacing-5) 0 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ── Section common ── */
+.section {
+  padding: var(--spacing-5) var(--spacing-4) 0;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-body1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-3);
+}
+
+/* ── Selected symptoms ── */
+.selectedWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.selectedCount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.selectedCountText {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+
+.selectedCountBadge {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-muted);
+}
+
+.selectedCountBadge span {
+  color: var(--color-primary);
+  font-size: var(--font-size-body2);
+}
+
+.selectedTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.selectedTag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 10px 0 var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  color: #fff;
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  animation: popIn 0.15s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.tagRemove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  background-color: rgba(255,255,255,0.25);
+  color: #fff;
+  transition: background-color var(--transition-fast);
+}
+
+.tagRemove:hover { background-color: rgba(255,255,255,0.4); }
+
+.emptyTags {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  border: 1.5px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-body2);
+}
+
+/* ── Duration chips ── */
+.durationChips {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.durationChip {
+  flex: 1;
+  height: 40px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text-gray);
+  transition: all var(--transition-fast);
+}
+
+.durationChip.durationActive {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* ── Intensity slider ── */
+.intensityWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.intensityHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.intensityValue {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+}
+
+.intensityLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    to right,
+    var(--color-primary) 0%,
+    var(--color-primary) var(--fill),
+    var(--color-bg-muted) var(--fill),
+    var(--color-bg-muted) 100%
+  );
+  outline: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--color-bg);
+  border: 2.5px solid var(--color-primary);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.slider::-webkit-slider-thumb:active {
+  transform: scale(1.2);
+}
+
+/* ── Sticky bottom CTA ── */
+.bottomCta {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width-mobile);
+  padding: var(--spacing-3) var(--spacing-4) var(--spacing-5);
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  z-index: 40;
+}
+
+.ctaSelectedPreview {
+  display: flex;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-3);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ctaSelectedPreview::-webkit-scrollbar { display: none; }
+
+.ctaPreviewTag {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ctaBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  height: var(--btn-height-l);
+  background-color: var(--color-primary);
+  color: #fff;
+  font-size: var(--font-size-btn-l);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--btn-radius-l);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+}
+
+.ctaBtn:active { background-color: var(--color-primary-dark); transform: scale(0.98); }
+.ctaBtn:disabled {
+  background-color: var(--color-border);
+  color: var(--color-text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+}

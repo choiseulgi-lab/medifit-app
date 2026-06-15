@@ -1,0 +1,27 @@
+.card {
+  background-color: var(--color-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: var(--card-padding);
+  border: var(--card-border);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.clickable {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.clickable:active {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-sm);
+}
+
+.selected {
+  border: 2px solid var(--color-primary);
+}
+
+.flat {
+  box-shadow: none;
+  border: var(--card-border);
+}

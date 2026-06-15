@@ -1,0 +1,438 @@
+/* ── Header ── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 var(--spacing-4);
+  height: var(--top-bar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-body1);
+}
+
+.locationName {
+  font-size: var(--font-size-body1);
+  font-weight: var(--font-weight-bold);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.iconBtn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--color-text-dark);
+  position: relative;
+  transition: background-color var(--transition-fast);
+}
+
+.iconBtn:hover {
+  background-color: var(--color-bg-muted);
+}
+
+.notiDot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-error);
+  border: 1.5px solid var(--color-bg);
+}
+
+/* ── Scroll container ── */
+.page {
+  padding-bottom: calc(var(--bottom-nav-height) + var(--spacing-4));
+  overflow-y: auto;
+}
+
+/* ── Hero ── */
+.hero {
+  padding: var(--spacing-6) var(--spacing-4) var(--spacing-5);
+  background: linear-gradient(160deg, #EFF6FF 0%, #F0FDF4 100%);
+}
+
+.greeting {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-1);
+}
+
+.heroTitle {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--spacing-5);
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--color-primary);
+}
+
+.ctaBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  height: var(--btn-height-l);
+  background-color: var(--color-primary);
+  color: #fff;
+  font-size: var(--font-size-btn-l);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--btn-radius-l);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+}
+
+.ctaBtn:active {
+  background-color: var(--color-primary-dark);
+  transform: scale(0.98);
+}
+
+/* ── Section ── */
+.section {
+  padding: var(--spacing-5) var(--spacing-4) 0;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-body1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+
+.sectionMore {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* ── Department Grid ── */
+.deptGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--spacing-2);
+}
+
+.deptItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.deptItem:active .deptIcon {
+  transform: scale(0.92);
+}
+
+.deptIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast);
+}
+
+.deptLabel {
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-gray);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── Booking Card ── */
+.bookingCard {
+  background-color: var(--color-bg);
+  border-radius: var(--card-radius);
+  border: var(--card-border);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.bookingTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.bookingHospital {
+  font-size: var(--font-size-body1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+
+.bookingMeta {
+  font-size: var(--font-size-body2);
+  color: var(--color-text-gray);
+  margin-top: 2px;
+}
+
+.bookingDivider {
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.bookingBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bookingDateTime {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-dark);
+}
+
+.dDayBadge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.bookingActions {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.bookingActionBtn {
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-gray);
+  background-color: var(--color-bg-muted);
+  transition: background-color var(--transition-fast);
+}
+
+.bookingActionBtn:hover {
+  background-color: var(--color-border);
+}
+
+/* ── Empty booking ── */
+.emptyBooking {
+  border-radius: var(--card-radius);
+  border: 1.5px dashed var(--color-border-strong);
+  padding: var(--spacing-6) var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+  text-align: center;
+}
+
+.emptyIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.emptyText {
+  font-size: var(--font-size-body2);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+}
+
+.emptyBtn {
+  padding: 8px 20px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  background-color: var(--color-primary);
+  color: #fff;
+  transition: background-color var(--transition-fast);
+}
+
+.emptyBtn:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* ── Wait Card ── */
+.waitCard {
+  background-color: var(--color-bg);
+  border-radius: var(--card-radius);
+  border: var(--card-border);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.waitTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.waitHospital {
+  font-size: var(--font-size-body1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+
+.waitMeta {
+  font-size: var(--font-size-body2);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.waitLiveBadge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-secondary);
+  background-color: var(--color-secondary-light);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-secondary);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.waitStats {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+.waitStat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--spacing-3);
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--radius-md);
+}
+
+.waitStatValue {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+
+.waitStatUnit {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+}
+
+.waitGoodBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  background-color: var(--color-secondary-light);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-secondary);
+}
+
+/* ── Health Tips ── */
+.tipScroll {
+  display: flex;
+  gap: var(--spacing-3);
+  overflow-x: auto;
+  padding: 0 var(--spacing-4) var(--spacing-2);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.tipScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.tipCard {
+  flex-shrink: 0;
+  width: 200px;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.tipTag {
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.tipTitle {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.tipDesc {
+  font-size: var(--font-size-caption);
+  opacity: 0.75;
+  line-height: var(--line-height-relaxed);
+}

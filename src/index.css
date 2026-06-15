@@ -1,0 +1,82 @@
+@import './styles/tokens.css';
+
+/* ─── Pretendard 폰트 ─── */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+/* ─── Reset ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-body1);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-dark);
+  background-color: #D1D5DB;
+  background-image: radial-gradient(circle at 60% 20%, #DBEAFE 0%, transparent 50%),
+                    radial-gradient(circle at 20% 80%, #D1FAE5 0%, transparent 40%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+#root {
+  width: 390px;
+  min-height: 100vh;
+  flex-shrink: 0;
+  background-color: var(--color-bg);
+  position: relative;
+  overflow-x: hidden;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08),
+              0 8px 40px rgba(0,0,0,0.18);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input,
+textarea,
+select {
+  font-family: var(--font-family);
+  font-size: var(--font-size-body1);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul,
+ol {
+  list-style: none;
+}

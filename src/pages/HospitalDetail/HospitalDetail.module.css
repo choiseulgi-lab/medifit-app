@@ -1,0 +1,37 @@
+.page { padding-bottom: 90px; }
+.heroBox { height: 160px; background: linear-gradient(135deg,#DBEAFE,#E0E7FF); display:flex;align-items:center;justify-content:center; }
+.heroEmoji { font-size: 56px; }
+.info { padding: var(--spacing-4); border-bottom: 1px solid var(--color-border); }
+.name { font-size: var(--font-size-h1); font-weight: var(--font-weight-bold); color: var(--color-text-dark); }
+.addr { display:flex;align-items:center;gap:4px;margin-top:4px;font-size:var(--font-size-body2);color:var(--color-text-muted); }
+
+.section { padding: var(--spacing-4); border-bottom: 1px solid var(--color-border); }
+.secTitle { font-size:var(--font-size-body1);font-weight:var(--font-weight-bold);color:var(--color-text-dark);margin-bottom:var(--spacing-3); }
+
+.waitCard { background:var(--color-bg-subtle);border-radius:var(--radius-xl);padding:var(--spacing-4);display:flex;flex-direction:column;gap:var(--spacing-3); }
+.waitTop { display:flex;align-items:center;justify-content:space-between; }
+.liveChip { display:flex;align-items:center;gap:5px;padding:3px 10px;border-radius:var(--radius-full);background:var(--color-secondary-light);color:var(--color-secondary);font-size:11px;font-weight:700; }
+.liveDot { width:6px;height:6px;border-radius:50%;background:var(--color-secondary);animation:pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+.waitStats { display:flex;gap:var(--spacing-3); }
+.stat { flex:1;text-align:center;padding:var(--spacing-3);background:var(--color-bg);border-radius:var(--radius-md); }
+.statNum { font-size:var(--font-size-h1);font-weight:var(--font-weight-bold);color:var(--color-text-dark); }
+.statUnit { font-size:var(--font-size-caption);color:var(--color-text-muted);margin-top:2px; }
+.goodBadge { display:flex;align-items:center;gap:var(--spacing-2);padding:var(--spacing-2) var(--spacing-3);background:var(--color-secondary-light);border-radius:var(--radius-md);font-size:var(--font-size-body2);font-weight:var(--font-weight-semibold);color:var(--color-secondary); }
+
+.hours { display:flex;flex-direction:column;gap:var(--spacing-2); }
+.hourRow { display:flex;justify-content:space-between;align-items:center; }
+.hourDay { font-size:var(--font-size-body2);color:var(--color-text-gray); }
+.hourTime { font-size:var(--font-size-body2);font-weight:var(--font-weight-semibold);color:var(--color-text-dark); }
+.hourToday { color:var(--color-primary);font-weight:700; }
+
+.doctorRow { display:flex;align-items:center;gap:var(--spacing-3);padding:var(--spacing-3) 0;border-bottom:1px solid var(--color-border); }
+.doctorRow:last-of-type { border:none; }
+.avatar { width:44px;height:44px;border-radius:50%;background:var(--color-primary-light);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0; }
+.doctorName { font-size:var(--font-size-body2);font-weight:var(--font-weight-bold);color:var(--color-text-dark); }
+.doctorSpec { font-size:var(--font-size-caption);color:var(--color-text-muted);margin-top:2px; }
+.availChip { padding:3px 8px;border-radius:var(--radius-full);font-size:10px;font-weight:700;background:var(--color-secondary-light);color:var(--color-secondary); }
+
+.sticky { position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:var(--max-width-mobile);padding:var(--spacing-3) var(--spacing-4) var(--spacing-5);background:var(--color-bg);border-top:1px solid var(--color-border);z-index:40; }
+.bookBtn { display:flex;align-items:center;justify-content:center;gap:var(--spacing-2);width:100%;height:var(--btn-height-l);background:var(--color-primary);color:#fff;border-radius:var(--btn-radius-l);font-size:var(--font-size-btn-l);font-weight:var(--font-weight-semibold);box-shadow:0 4px 16px rgba(37,99,235,.3);transition:background var(--transition-fast); }
+.bookBtn:hover { background:var(--color-primary-dark); }

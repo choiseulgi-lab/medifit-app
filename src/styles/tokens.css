@@ -1,0 +1,126 @@
+:root {
+  /* ─── Color: Primary ─── */
+  --color-primary: #2563EB;
+  --color-primary-light: #DBEAFE;
+  --color-primary-dark: #1D4ED8;
+
+  /* ─── Color: Secondary ─── */
+  --color-secondary: #10B981;
+  --color-secondary-light: #D1FAE5;
+
+  /* ─── Color: Accent ─── */
+  --color-accent: #F59E0B;
+  --color-accent-light: #FEF3C7;
+
+  /* ─── Color: Semantic ─── */
+  --color-error: #EF4444;
+  --color-error-light: #FEE2E2;
+
+  /* ─── Color: Text ─── */
+  --color-text-dark: #1E293B;
+  --color-text-gray: #475569;
+  --color-text-muted: #94A3B8;
+  --color-text-disabled: #CBD5E1;
+
+  /* ─── Color: Surface ─── */
+  --color-bg: #FFFFFF;
+  --color-bg-subtle: #F8FAFC;
+  --color-bg-muted: #F1F5F9;
+
+  /* ─── Color: Border ─── */
+  --color-border: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+
+  /* ─── Typography: Font Family ─── */
+  --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* ─── Typography: Font Size ─── */
+  --font-size-display: 28px;
+  --font-size-h1: 22px;
+  --font-size-h2: 18px;
+  --font-size-body1: 16px;
+  --font-size-body2: 14px;
+  --font-size-caption: 12px;
+  --font-size-btn-l: 17px;
+  --font-size-btn-m: 15px;
+
+  /* ─── Typography: Font Weight ─── */
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-regular: 400;
+
+  /* ─── Typography: Line Height ─── */
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* ─── Spacing ─── */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+
+  /* ─── Border Radius ─── */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
+
+  /* ─── Shadow ─── */
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* ─── Component: Button ─── */
+  --btn-height-l: 52px;
+  --btn-height-m: 48px;
+  --btn-padding: 16px 24px;
+  --btn-radius-l: 12px;
+  --btn-radius-m: 10px;
+
+  /* ─── Component: Input ─── */
+  --input-height: 52px;
+  --input-radius: 10px;
+  --input-border: 1.5px solid var(--color-border);
+  --input-bg: var(--color-bg-subtle);
+
+  /* ─── Component: Card ─── */
+  --card-radius: 16px;
+  --card-shadow: var(--shadow-md);
+  --card-padding: 16px;
+  --card-border: 1px solid var(--color-border);
+
+  /* ─── Component: Badge ─── */
+  --badge-height: 22px;
+  --badge-padding: 2px 10px;
+  --badge-radius: var(--radius-full);
+  --badge-font-size: var(--font-size-caption);
+  --badge-font-weight: var(--font-weight-semibold);
+
+  /* ─── Component: Bottom Sheet ─── */
+  --bottom-sheet-radius: 20px 20px 0 0;
+  --bottom-sheet-min-height: 40vh;
+  --bottom-sheet-max-height: 90vh;
+
+  /* ─── Component: Icon ─── */
+  --icon-size: 24px;
+  --icon-size-lg: 32px;
+  --icon-stroke: 1.5px;
+
+  /* ─── Animation ─── */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+
+  /* ─── Layout ─── */
+  --max-width-mobile: 390px;
+  --bottom-nav-height: 60px;
+  --top-bar-height: 56px;
+}
