@@ -29,14 +29,11 @@ export default function Home({ onBookingClick }) {
     <>
       {/* ── 헤더 ── */}
       <header className={styles.header}>
-        <div className={styles.headerLeft}>
-          <span className={styles.appName}>MEDIFIT</span>
-          <button className={styles.location}>
-            <MapPin size={14} color="var(--color-primary)" strokeWidth={2.5} />
-            <span className={styles.locationName}>서울 강남구</span>
-            <ChevronDown size={13} color="var(--color-text-muted)" />
-          </button>
-        </div>
+        <button className={styles.location}>
+          <MapPin size={16} color="var(--color-primary)" strokeWidth={2.5} />
+          <span className={styles.locationName}>서울 강남구</span>
+          <ChevronDown size={15} color="var(--color-text-muted)" />
+        </button>
 
         <div className={styles.headerRight}>
           <button className={styles.iconBtn}>
