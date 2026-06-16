@@ -142,6 +142,10 @@ export default function App() {
         <BookingList
           bookings={bookings}
           onBack={() => { setTab('home'); go('home'); }}
+          onNewBooking={() => {
+            setMemberNext('symptom');
+            go('memberSelect');
+          }}
         />
       )}
 

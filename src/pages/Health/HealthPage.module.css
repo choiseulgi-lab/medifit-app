@@ -243,6 +243,27 @@
   line-height: var(--line-height-relaxed);
 }
 
+.reviewBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  padding: var(--spacing-3);
+  border: 1.5px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-dark);
+  background: var(--color-accent-light);
+  transition: background var(--transition-fast);
+}
+
+.reviewBtn:hover {
+  background: var(--color-accent-light);
+  opacity: 0.85;
+}
+
 /* ════════════════════════════
    탭 2 · 가족관리
 ════════════════════════════ */

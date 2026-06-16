@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import {
   ChevronRight, CalendarDays, FileText,
-  Plus, CheckCircle2, Clock, UserPlus,
-  Stethoscope, Pill,
+  CheckCircle2, Clock, UserPlus,
+  Stethoscope, Pill, Star,
 } from 'lucide-react';
 import { FAMILY_MEMBERS, FAMILY_RECORDS, DEPT_MAP } from '../../data/mock';
 import styles from './HealthPage.module.css';
@@ -123,6 +123,11 @@ function RecordsTab() {
                   <FileText size={13} color="var(--color-text-muted)" />
                   <p className={styles.memoText}>{r.memo}</p>
                 </div>
+                <button className={styles.reviewBtn}>
+                  <Star size={14} color="var(--color-accent)" fill="var(--color-accent)" />
+                  이 병원 리뷰 작성하기
+                  <ChevronRight size={14} color="var(--color-text-muted)" />
+                </button>
               </div>
             )}
           </div>
