@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { CalendarDays, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CalendarDays, CheckCircle2 } from 'lucide-react';
 import { TopBar } from '../../components';
-import { DOCTORS, TIME_SLOTS, UNAVAILABLE_SLOTS } from '../../data/mock';
+import { DOCTORS, TIME_SLOTS, UNAVAILABLE_SLOTS, FAMILY_MEMBERS } from '../../data/mock';
 import styles from './BookingPage.module.css';
 
-const STEPS = ['의사 선택', '날짜·시간', '예약 확인'];
+const STEPS = ['예약자 선택', '의사 선택', '날짜·시간', '예약 확인'];
 
 /* ── 날짜 생성 (오늘부터 14일) ── */
 function buildDates() {
@@ -29,31 +29,37 @@ function buildDates() {
 const DATES = buildDates();
 
 export default function BookingPage({ hospital, onBack, onDone }) {
-  const h = hospital ?? { name: '강남 연세내과의원', dept: '내과' };
+  const h = hospital ?? { name: '강남 연세내과의원', dept: '내과', id: 1 };
   const doctors = DOCTORS.filter(d => d.hospitalId === (hospital?.id ?? 1)).slice(0, 3);
 
-  const [step, setStep]     = useState(0);
-  const [doctor, setDoctor] = useState(null);
-  const [date, setDate]     = useState(null);
-  const [time, setTime]     = useState(null);
-  const [done, setDone]     = useState(false);
+  const [step, setStep]       = useState(0);
+  const [member, setMember]   = useState(null);   // 예약자 (가족 구성원)
+  const [doctor, setDoctor]   = useState(null);
+  const [date, setDate]       = useState(null);
+  const [time, setTime]       = useState(null);
+  const [done, setDone]       = useState(false);
 
   const canNext = [
-    !!doctor,
-    !!(date && time),
-    true,
+    !!member,          // step 0: 예약자 선택
+    !!doctor,          // step 1: 의사 선택
+    !!(date && time),  // step 2: 날짜·시간
+    true,              // step 3: 확인
   ][step];
 
   const handleNext = () => {
-    if (step < 2) { setStep(s => s + 1); return; }
+    if (step < STEPS.length - 1) { setStep(s => s + 1); return; }
     setDone(true);
   };
 
+  /* ── 완료 화면 ── */
   if (done) {
     return (
       <div className={styles.donePage}>
         <div className={styles.doneIcon}><CheckCircle2 size={64} color="var(--color-secondary)" /></div>
         <p className={styles.doneTitle}>예약이 완료됐어요!</p>
+        <div className={styles.doneMemberBadge} style={{ background: member.bg, color: member.color }}>
+          {member.name} ({member.relation})
+        </div>
         <p className={styles.doneSub}>
           {h.name}<br />
           {doctor?.name} {doctor?.title} · {date} {time}
@@ -65,31 +71,97 @@ export default function BookingPage({ hospital, onBack, onDone }) {
 
   return (
     <>
-      <TopBar title="예약하기" onBack={step === 0 ? onBack : () => setStep(s => s - 1)} />
+      <TopBar
+        title="예약하기"
+        onBack={step === 0 ? onBack : () => setStep(s => s - 1)}
+      />
 
-      {/* 진행 단계 */}
+      {/* ── 진행 단계 ── */}
       <div className={styles.stepper}>
         {STEPS.map((label, i) => (
           <div key={label} className={styles.stepItem}>
-            <div className={[styles.stepDot, i <= step && styles.stepDotActive, i < step && styles.stepDotDone].filter(Boolean).join(' ')}>
+            <div className={[
+              styles.stepDot,
+              i <= step && styles.stepDotActive,
+              i < step  && styles.stepDotDone,
+            ].filter(Boolean).join(' ')}>
               {i < step ? <CheckCircle2 size={14} /> : i + 1}
             </div>
-            <span className={[styles.stepLabel, i === step && styles.stepLabelActive].filter(Boolean).join(' ')}>{label}</span>
-            {i < STEPS.length - 1 && <div className={[styles.stepLine, i < step && styles.stepLineDone].filter(Boolean).join(' ')} />}
+            <span className={[styles.stepLabel, i === step && styles.stepLabelActive].filter(Boolean).join(' ')}>
+              {label}
+            </span>
+            {i < STEPS.length - 1 && (
+              <div className={[styles.stepLine, i < step && styles.stepLineDone].filter(Boolean).join(' ')} />
+            )}
           </div>
         ))}
       </div>
 
       <div className={styles.page}>
 
-        {/* ── Step 0: 의사 선택 ── */}
+        {/* ══ Step 0: 예약자 선택 ══ */}
         {step === 0 && (
           <div>
+            <p className={styles.sectionTitle}>누구의 예약인가요?</p>
+            <p className={styles.sectionDesc}>진료받을 가족 구성원을 선택해주세요</p>
+
+            {FAMILY_MEMBERS.map(m => (
+              <button
+                key={m.id}
+                className={[
+                  styles.memberCard,
+                  member?.id === m.id && styles.memberCardActive,
+                ].filter(Boolean).join(' ')}
+                style={member?.id === m.id ? { borderColor: m.color, boxShadow: `0 0 0 3px ${m.bg}` } : {}}
+                onClick={() => setMember(m)}
+              >
+                {/* 아바타 */}
+                <span
+                  className={styles.memberAvatar}
+                  style={{ background: m.bg, color: m.color }}
+                >
+                  {m.initial}
+                </span>
+
+                {/* 정보 */}
+                <div className={styles.memberInfo}>
+                  <div className={styles.memberNameRow}>
+                    <span className={styles.memberName}>{m.name}</span>
+                    <span className={styles.memberRelation} style={{ background: m.bg, color: m.color }}>
+                      {m.relation}
+                    </span>
+                  </div>
+                  <p className={styles.memberSub}>{2026 - m.birthYear}세 · {m.gender}</p>
+                </div>
+
+                {/* 체크 */}
+                {member?.id === m.id && (
+                  <CheckCircle2 size={22} color={m.color} />
+                )}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* ══ Step 1: 의사 선택 ══ */}
+        {step === 1 && (
+          <div>
+            {/* 예약자 확인 칩 */}
+            <div className={styles.selectedMemberChip} style={{ background: member.bg }}>
+              <span style={{ color: member.color }}>
+                {member.name} ({member.relation}) 의 예약
+              </span>
+            </div>
+
             <p className={styles.sectionTitle}>의사 선택</p>
             {doctors.map(d => (
               <button
                 key={d.id}
-                className={[styles.doctorCard, doctor?.id === d.id && styles.doctorCardActive, !d.available && styles.doctorCardDisabled].filter(Boolean).join(' ')}
+                className={[
+                  styles.doctorCard,
+                  doctor?.id === d.id && styles.doctorCardActive,
+                  !d.available && styles.doctorCardDisabled,
+                ].filter(Boolean).join(' ')}
                 onClick={() => d.available && setDoctor(d)}
                 disabled={!d.available}
               >
@@ -112,15 +184,26 @@ export default function BookingPage({ hospital, onBack, onDone }) {
           </div>
         )}
 
-        {/* ── Step 1: 날짜·시간 ── */}
-        {step === 1 && (
+        {/* ══ Step 2: 날짜·시간 ══ */}
+        {step === 2 && (
           <div>
+            {/* 예약자 확인 칩 */}
+            <div className={styles.selectedMemberChip} style={{ background: member.bg }}>
+              <span style={{ color: member.color }}>
+                {member.name} ({member.relation}) 의 예약
+              </span>
+            </div>
+
             <p className={styles.sectionTitle}>날짜 선택</p>
             <div className={styles.dateScroll}>
               {DATES.map(d => (
                 <button
                   key={d.key}
-                  className={[styles.dateItem, d.isWeekend && styles.dateWeekend, date === d.key && styles.dateActive].filter(Boolean).join(' ')}
+                  className={[
+                    styles.dateItem,
+                    d.isWeekend && styles.dateWeekend,
+                    date === d.key && styles.dateActive,
+                  ].filter(Boolean).join(' ')}
                   onClick={() => { setDate(d.key); setTime(null); }}
                 >
                   <span className={styles.dateWeekdayLabel}>{d.isToday ? '오늘' : d.weekday}</span>
@@ -148,7 +231,6 @@ export default function BookingPage({ hospital, onBack, onDone }) {
                     );
                   })}
                 </div>
-
                 <p className={styles.sectionTitle} style={{ marginTop: 'var(--spacing-4)' }}>오후</p>
                 <div className={styles.timeGrid}>
                   {TIME_SLOTS.PM.map(t => {
@@ -174,11 +256,25 @@ export default function BookingPage({ hospital, onBack, onDone }) {
           </div>
         )}
 
-        {/* ── Step 2: 예약 확인 ── */}
-        {step === 2 && (
+        {/* ══ Step 3: 예약 확인 ══ */}
+        {step === 3 && (
           <div>
             <p className={styles.sectionTitle}>예약 내용 확인</p>
             <div className={styles.confirmCard}>
+              {/* 예약자 행 (강조) */}
+              <div className={[styles.confirmRow, styles.confirmRowHighlight].filter(Boolean).join(' ')}
+                style={{ background: member.bg }}>
+                <span className={styles.confirmLabel}>예약자</span>
+                <div className={styles.confirmMemberValue}>
+                  <span className={styles.memberRelation} style={{ background: member.color, color: '#fff' }}>
+                    {member.relation}
+                  </span>
+                  <span className={styles.confirmValue} style={{ color: member.color }}>
+                    {member.name}
+                  </span>
+                </div>
+              </div>
+              <div className={styles.confirmDivider} />
               <div className={styles.confirmRow}>
                 <span className={styles.confirmLabel}>병원</span>
                 <span className={styles.confirmValue}>{h.name}</span>
@@ -209,14 +305,18 @@ export default function BookingPage({ hospital, onBack, onDone }) {
               <p className={styles.noticeTitle}>예약 안내</p>
               <p className={styles.noticeText}>· 예약 취소는 방문 1시간 전까지 가능해요.</p>
               <p className={styles.noticeText}>· 진료 10분 전에 도착하시면 대기가 줄어들어요.</p>
-              <p className={styles.noticeText}>· 초진이신 경우 신분증을 지참해 주세요.</p>
+              {member.relation !== '본인' && (
+                <p className={styles.noticeText}>
+                  · <strong>{member.name}</strong>({member.relation}) 명의로 예약됩니다. 방문 시 보호자 동행을 권장해요.
+                </p>
+              )}
             </div>
           </div>
         )}
 
       </div>
 
-      {/* 하단 CTA */}
+      {/* ── 하단 CTA ── */}
       <div className={styles.bottomCta}>
         <button
           className={styles.ctaBtn}
@@ -224,7 +324,7 @@ export default function BookingPage({ hospital, onBack, onDone }) {
           onClick={handleNext}
         >
           <CalendarDays size={20} />
-          {step === 2 ? '예약 확정하기' : '다음 단계'}
+          {step === STEPS.length - 1 ? '예약 확정하기' : '다음 단계'}
         </button>
       </div>
     </>
