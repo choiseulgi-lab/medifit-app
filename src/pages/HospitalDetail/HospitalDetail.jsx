@@ -1,4 +1,5 @@
-import { MapPin, Phone, CheckCircle2, CalendarDays, Star } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { MapPin, Phone, CheckCircle2, CalendarDays, Star, ThumbsUp, ArrowUp } from 'lucide-react';
 import { TopBar } from '../../components';
 import { DOCTORS, HOSPITAL_REVIEWS } from '../../data/mock';
 import styles from './HospitalDetail.module.css';
@@ -12,6 +13,8 @@ const HOURS = [
   { day: '토요일',   time: '09:00 – 13:00' },
   { day: '일요일',   time: '휴진' },
 ];
+
+const SORT_OPTIONS = ['최신순', '추천순'];
 
 function StarRow({ rating, size = 14 }) {
   return (
@@ -39,15 +42,34 @@ export default function HospitalDetail({ hospital, onBack, onBook }) {
   const doctorsByHospital = DOCTORS.filter(d => d.hospitalId === hospital?.id);
   const doctors = (doctorsByHospital.length > 0 ? doctorsByHospital : DOCTORS).slice(0, 3);
 
-  const reviews = HOSPITAL_REVIEWS.filter(r => r.hospitalId === (hospital?.id ?? 1));
-  const avgRating = reviews.length
-    ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)
+  const rawReviews = HOSPITAL_REVIEWS.filter(r => r.hospitalId === (hospital?.id ?? 1));
+  const avgRating  = rawReviews.length
+    ? (rawReviews.reduce((s, r) => s + r.rating, 0) / rawReviews.length).toFixed(1)
     : h.rating ?? 4.8;
+
+  const [sort, setSort]         = useState('최신순');
+  const [showTop, setShowTop]   = useState(false);
+  const pageRef                 = useRef(null);
+
+  const sortedReviews = [...rawReviews].sort((a, b) =>
+    sort === '추천순'
+      ? b.likes - a.likes
+      : new Date(b.date) - new Date(a.date)
+  );
+
+  /* ── 스크롤 감지 → Top 버튼 표시 ── */
+  useEffect(() => {
+    const handleScroll = () => setShowTop(window.scrollY > 350);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
     <>
       <TopBar title={h.name} onBack={onBack} />
-      <div className={styles.page}>
+      <div className={styles.page} ref={pageRef}>
 
         <div className={styles.heroBox}>
           <span className={styles.heroEmoji}>🏥</span>
@@ -108,20 +130,38 @@ export default function HospitalDetail({ hospital, onBack, onBook }) {
 
         {/* 리뷰 */}
         <div className={styles.section}>
+          {/* 헤더 */}
           <div className={styles.reviewHeader}>
-            <p className={styles.secTitle}>리뷰</p>
-            <div className={styles.reviewSummary}>
-              <Star size={16} color="var(--color-accent)" fill="var(--color-accent)" />
-              <span className={styles.reviewAvg}>{avgRating}</span>
-              <span className={styles.reviewTotal}>({h.reviewCount ?? reviews.length})</span>
+            <div className={styles.reviewTitleWrap}>
+              <p className={styles.secTitle}>리뷰</p>
+              <div className={styles.reviewSummary}>
+                <Star size={15} color="var(--color-accent)" fill="var(--color-accent)" />
+                <span className={styles.reviewAvg}>{avgRating}</span>
+                <span className={styles.reviewTotal}>({h.reviewCount ?? rawReviews.length})</span>
+              </div>
             </div>
+
+            {/* 정렬 */}
+            {rawReviews.length > 0 && (
+              <div className={styles.sortRow}>
+                {SORT_OPTIONS.map(opt => (
+                  <button
+                    key={opt}
+                    className={[styles.sortBtn, sort === opt && styles.sortBtnActive].filter(Boolean).join(' ')}
+                    onClick={() => setSort(opt)}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          {reviews.length === 0 ? (
+          {rawReviews.length === 0 ? (
             <p className={styles.reviewEmpty}>아직 리뷰가 없어요. 첫 리뷰를 남겨보세요!</p>
           ) : (
             <div className={styles.reviewList}>
-              {reviews.map(r => (
+              {sortedReviews.map(r => (
                 <div key={r.id} className={styles.reviewCard}>
                   <div className={styles.reviewTop}>
                     <div className={styles.reviewAuthorWrap}>
@@ -136,6 +176,12 @@ export default function HospitalDetail({ hospital, onBack, onBook }) {
                     ))}
                   </div>
                   <p className={styles.reviewContent}>{r.content}</p>
+                  <div className={styles.reviewFooter}>
+                    <button className={styles.likeBtn}>
+                      <ThumbsUp size={13} strokeWidth={1.8} />
+                      도움돼요 {r.likes}
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -143,6 +189,13 @@ export default function HospitalDetail({ hospital, onBack, onBook }) {
         </div>
 
       </div>
+
+      {/* Top 버튼 */}
+      {showTop && (
+        <button className={styles.topBtn} onClick={scrollToTop}>
+          <ArrowUp size={18} strokeWidth={2.5} />
+        </button>
+      )}
 
       <div className={styles.sticky}>
         <button className={styles.bookBtn} onClick={onBook}>
