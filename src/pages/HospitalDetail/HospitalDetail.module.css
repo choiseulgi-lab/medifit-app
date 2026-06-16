@@ -183,7 +183,8 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--color-text-dark);
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(6px);
   color: #fff;
   display: flex;
   align-items: center;
@@ -193,7 +194,7 @@
   animation: fadeIn 0.2s ease;
   transition: background var(--transition-fast);
 }
-.topBtn:hover { background: var(--color-primary); }
+.topBtn:hover { background: rgba(37, 99, 235, 0.85); }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
