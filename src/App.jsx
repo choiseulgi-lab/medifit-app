@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BottomNav } from './components';
 import Home           from './pages/Home/Home';
+import MemberSelect   from './pages/MemberSelect/MemberSelect';
 import SymptomPage    from './pages/Symptom/SymptomPage';
 import RecommendPage  from './pages/Recommend/RecommendPage';
 import HospitalList   from './pages/HospitalList/HospitalList';
@@ -18,10 +19,10 @@ export default function App() {
   const [screen, setScreen] = useState('home');
   const [tab, setTab]       = useState('home');
 
-  // 화면 간 전달 데이터
-  const [symptoms, setSymptoms]   = useState([]);
-  const [dept, setDept]           = useState(null);
-  const [hospital, setHospital]   = useState(null);
+  const [member, setMember]     = useState(null);   // 예약자 (가족 구성원)
+  const [symptoms, setSymptoms] = useState([]);
+  const [dept, setDept]         = useState(null);
+  const [hospital, setHospital] = useState(null);
 
   const go = (next) => setScreen(next);
 
@@ -39,12 +40,24 @@ export default function App() {
   return (
     <>
       {screen === 'home' && (
-        <Home onBookingClick={() => go('symptom')} />
+        <Home onBookingClick={() => go('memberSelect')} />
+      )}
+
+      {/* ① 예약자 선택 → 증상 선택으로 진입 */}
+      {screen === 'memberSelect' && (
+        <MemberSelect
+          onBack={() => go('home')}
+          onSelect={(m) => {
+            setMember(m);
+            go('symptom');
+          }}
+        />
       )}
 
       {screen === 'symptom' && (
         <SymptomPage
-          onBack={() => go('home')}
+          member={member}
+          onBack={() => go('memberSelect')}
           onNext={(data) => {
             setSymptoms(data.symptoms);
             go('recommend');
@@ -85,6 +98,7 @@ export default function App() {
       {screen === 'booking' && (
         <BookingPage
           hospital={hospital}
+          member={member}
           onBack={() => go('hospitalDetail')}
           onDone={() => {
             setTab('bookings');
@@ -112,13 +126,8 @@ export default function App() {
         />
       )}
 
-      {screen === 'health' && (
-        <HealthPage />
-      )}
-
-      {screen === 'mypage' && (
-        <MyPage />
-      )}
+      {screen === 'health' && <HealthPage />}
+      {screen === 'mypage'  && <MyPage />}
 
       {showNav && (
         <BottomNav active={tab} onChange={handleTabChange} badges={{ bookings: true }} />

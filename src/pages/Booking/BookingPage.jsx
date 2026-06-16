@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { CalendarDays, CheckCircle2 } from 'lucide-react';
 import { TopBar } from '../../components';
-import { DOCTORS, TIME_SLOTS, UNAVAILABLE_SLOTS, FAMILY_MEMBERS } from '../../data/mock';
+import { DOCTORS, TIME_SLOTS, UNAVAILABLE_SLOTS } from '../../data/mock';
 import styles from './BookingPage.module.css';
 
-const STEPS = ['예약자 선택', '의사 선택', '날짜·시간', '예약 확인'];
+const STEPS = ['의사 선택', '날짜·시간', '예약 확인'];
 
 /* ── 날짜 생성 (오늘부터 14일) ── */
 function buildDates() {
@@ -28,22 +28,20 @@ function buildDates() {
 
 const DATES = buildDates();
 
-export default function BookingPage({ hospital, onBack, onDone }) {
+export default function BookingPage({ hospital, member, onBack, onDone }) {
   const h = hospital ?? { name: '강남 연세내과의원', dept: '내과', id: 1 };
   const doctors = DOCTORS.filter(d => d.hospitalId === (hospital?.id ?? 1)).slice(0, 3);
 
-  const [step, setStep]       = useState(0);
-  const [member, setMember]   = useState(null);   // 예약자 (가족 구성원)
-  const [doctor, setDoctor]   = useState(null);
-  const [date, setDate]       = useState(null);
-  const [time, setTime]       = useState(null);
-  const [done, setDone]       = useState(false);
+  const [step, setStep]   = useState(0);
+  const [doctor, setDoctor] = useState(null);
+  const [date, setDate]   = useState(null);
+  const [time, setTime]   = useState(null);
+  const [done, setDone]   = useState(false);
 
   const canNext = [
-    !!member,          // step 0: 예약자 선택
-    !!doctor,          // step 1: 의사 선택
-    !!(date && time),  // step 2: 날짜·시간
-    true,              // step 3: 확인
+    !!doctor,         // step 0: 의사 선택
+    !!(date && time), // step 1: 날짜·시간
+    true,             // step 2: 확인
   ][step];
 
   const handleNext = () => {
@@ -99,52 +97,8 @@ export default function BookingPage({ hospital, onBack, onDone }) {
 
       <div className={styles.page}>
 
-        {/* ══ Step 0: 예약자 선택 ══ */}
+        {/* ══ Step 0: 의사 선택 ══ */}
         {step === 0 && (
-          <div>
-            <p className={styles.sectionTitle}>누구의 예약인가요?</p>
-            <p className={styles.sectionDesc}>진료받을 가족 구성원을 선택해주세요</p>
-
-            {FAMILY_MEMBERS.map(m => (
-              <button
-                key={m.id}
-                className={[
-                  styles.memberCard,
-                  member?.id === m.id && styles.memberCardActive,
-                ].filter(Boolean).join(' ')}
-                style={member?.id === m.id ? { borderColor: m.color, boxShadow: `0 0 0 3px ${m.bg}` } : {}}
-                onClick={() => setMember(m)}
-              >
-                {/* 아바타 */}
-                <span
-                  className={styles.memberAvatar}
-                  style={{ background: m.bg, color: m.color }}
-                >
-                  {m.initial}
-                </span>
-
-                {/* 정보 */}
-                <div className={styles.memberInfo}>
-                  <div className={styles.memberNameRow}>
-                    <span className={styles.memberName}>{m.name}</span>
-                    <span className={styles.memberRelation} style={{ background: m.bg, color: m.color }}>
-                      {m.relation}
-                    </span>
-                  </div>
-                  <p className={styles.memberSub}>{2026 - m.birthYear}세 · {m.gender}</p>
-                </div>
-
-                {/* 체크 */}
-                {member?.id === m.id && (
-                  <CheckCircle2 size={22} color={m.color} />
-                )}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* ══ Step 1: 의사 선택 ══ */}
-        {step === 1 && (
           <div>
             {/* 예약자 확인 칩 */}
             <div className={styles.selectedMemberChip} style={{ background: member.bg }}>
@@ -184,8 +138,8 @@ export default function BookingPage({ hospital, onBack, onDone }) {
           </div>
         )}
 
-        {/* ══ Step 2: 날짜·시간 ══ */}
-        {step === 2 && (
+        {/* ══ Step 1: 날짜·시간 ══ */}
+        {step === 1 && (
           <div>
             {/* 예약자 확인 칩 */}
             <div className={styles.selectedMemberChip} style={{ background: member.bg }}>
@@ -256,8 +210,8 @@ export default function BookingPage({ hospital, onBack, onDone }) {
           </div>
         )}
 
-        {/* ══ Step 3: 예약 확인 ══ */}
-        {step === 3 && (
+        {/* ══ Step 2: 예약 확인 ══ */}
+        {step === 2 && (
           <div>
             <p className={styles.sectionTitle}>예약 내용 확인</p>
             <div className={styles.confirmCard}>

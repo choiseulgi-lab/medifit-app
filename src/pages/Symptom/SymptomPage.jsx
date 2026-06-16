@@ -28,7 +28,7 @@ const MAX = 3;
 
 const INTENSITY_LABEL = { 1: '매우 약함', 2: '약함', 3: '보통', 4: '강함', 5: '매우 강함' };
 
-export default function SymptomPage({ onBack, onNext }) {
+export default function SymptomPage({ onBack, onNext, member }) {
   const [mode, setMode]           = useState('body');   // 'body' | 'search'
   const [front, setFront]         = useState(true);
   const [selectedPart, setPart]   = useState(null);
@@ -62,6 +62,22 @@ export default function SymptomPage({ onBack, onNext }) {
   return (
     <>
       <TopBar title="증상 선택" onBack={onBack} />
+
+      {/* ── 예약자 칩 ── */}
+      {member && (
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: 6,
+          margin: '8px 16px 0',
+          padding: '4px 12px',
+          borderRadius: 9999,
+          background: member.bg,
+          fontSize: 12,
+          fontWeight: 700,
+          color: member.color,
+        }}>
+          {member.name} ({member.relation}) 의 증상
+        </div>
+      )}
 
       {/* ── 진행 표시 ── */}
       <div className={styles.progress}>

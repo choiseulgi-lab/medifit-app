@@ -1,0 +1,167 @@
+.page {
+  padding: var(--spacing-6) var(--spacing-4) 100px;
+}
+
+.heading {
+  margin-bottom: var(--spacing-6);
+}
+
+.title {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-1);
+}
+
+.sub {
+  font-size: var(--font-size-body2);
+  color: var(--color-text-muted);
+}
+
+/* ── 목록 ── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+/* ── 구성원 카드 ── */
+.card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  width: 100%;
+  padding: var(--spacing-4);
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  text-align: left;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.card:hover {
+  border-color: var(--color-border-strong);
+}
+
+.cardActive {
+  /* 동적 색상은 inline style */
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+
+.info { flex: 1; }
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: 4px;
+}
+
+.name {
+  font-size: var(--font-size-body1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+
+.relation {
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+}
+
+.meta {
+  font-size: var(--font-size-body2);
+  color: var(--color-text-muted);
+}
+
+.emptyCheck {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-strong);
+  flex-shrink: 0;
+  display: block;
+}
+
+/* ── 구성원 추가 카드 ── */
+.addCard {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  width: 100%;
+  padding: var(--spacing-4);
+  border: 1.5px dashed var(--color-primary);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg);
+  transition: background var(--transition-fast);
+}
+
+.addCard:hover {
+  background: var(--color-primary-light);
+}
+
+.addIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.addLabel {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+
+/* ── 하단 CTA ── */
+.bottomCta {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width-mobile);
+  padding: var(--spacing-3) var(--spacing-4) var(--spacing-5);
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  z-index: 40;
+}
+
+.ctaBtn {
+  width: 100%;
+  height: var(--btn-height-l);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--btn-radius-l);
+  font-size: var(--font-size-btn-l);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+  transition: background var(--transition-fast);
+}
+
+.ctaBtn:disabled {
+  background: var(--color-text-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.ctaBtn:not(:disabled):hover {
+  background: var(--color-primary-dark);
+}
