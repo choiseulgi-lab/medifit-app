@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   padding-bottom: calc(var(--bottom-nav-height) + var(--spacing-4));
-  overflow-y: auto;
 }
 
 /* ── 헤더 ── */
@@ -56,310 +55,71 @@
   gap: var(--spacing-3);
 }
 
-.sectionTitle {
-  font-size: var(--font-size-body2);
+.sectionLabel {
+  font-size: var(--font-size-caption);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-top: var(--spacing-2);
 }
 
 /* ════════════════════════════
-   건강 지표 탭
+   공통: 아바타
 ════════════════════════════ */
-
-/* 요약 배너 */
-.summaryBanner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(135deg, #EFF6FF, #F0FDF4);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-4) var(--spacing-5);
-  gap: var(--spacing-3);
-}
-
-.summaryLeft { flex: 1; }
-
-.summaryDate {
-  font-size: var(--font-size-caption);
-  color: var(--color-text-muted);
-  margin-bottom: 4px;
-}
-
-.summaryTitle {
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-dark);
-  line-height: var(--line-height-tight);
-}
-
-.summaryTitle em {
-  font-style: normal;
-  color: var(--color-primary);
-}
-
-.summarySub {
-  font-size: var(--font-size-caption);
-  color: var(--color-text-gray);
-  margin-top: var(--spacing-1);
-}
-
-.summaryScore {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: var(--color-bg);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-3) var(--spacing-4);
-  box-shadow: var(--shadow-sm);
-  min-width: 72px;
-}
-
-.scoreNum {
-  font-size: 28px;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-  line-height: 1;
-}
-
-.scoreLabel {
-  font-size: 10px;
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-semibold);
-  margin-top: 4px;
-}
-
-/* 지표 카드 */
-.vitalCard {
-  width: 100%;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-4);
-  text-align: left;
-  box-shadow: var(--shadow-sm);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.vitalCardOpen {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-light);
-}
-
-.vitalTop {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
-}
-
-.vitalIconWrap {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-lg);
+.avatar {
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-}
-
-.vitalInfo {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.vitalLabel {
-  font-size: var(--font-size-caption);
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-semibold);
-}
-
-.vitalValue {
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-dark);
-  line-height: 1;
-}
-
-.vitalUnit {
-  font-size: var(--font-size-caption);
-  font-weight: var(--font-weight-regular);
-  color: var(--color-text-muted);
-}
-
-.vitalBadge {
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
-  font-size: 11px;
   font-weight: var(--font-weight-bold);
   flex-shrink: 0;
-}
-
-/* 미니 차트 */
-.vitalDetail {
-  margin-top: var(--spacing-4);
-  padding-top: var(--spacing-3);
-  border-top: 1px solid var(--color-border);
-}
-
-.chartTitle {
-  font-size: var(--font-size-caption);
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--spacing-2);
-}
-
-.miniBar {
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  height: 80px;
-}
-
-.barCol {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 4px;
-  height: 100%;
-}
-
-.barFill {
-  width: 100%;
-  border-radius: 4px 4px 0 0;
-  min-height: 6px;
-  transition: height var(--transition-base);
-}
-
-.barDay {
-  font-size: 9px;
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-semibold);
-}
-
-.hint {
-  font-size: var(--font-size-caption);
-  color: var(--color-text-disabled);
-  text-align: center;
-  padding: var(--spacing-2) 0;
+  letter-spacing: -0.02em;
 }
 
 /* ════════════════════════════
-   복약 관리 탭
+   탭 1 · 진료이력
 ════════════════════════════ */
 
-.medProgress {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-4);
-  box-shadow: var(--shadow-sm);
-}
-
-.medProgressTop {
+/* 구성원 필터 */
+.filterScroll {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacing-3);
-}
-
-.medProgressLabel {
-  font-size: var(--font-size-body2);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-dark);
-}
-
-.medProgressCount {
-  font-size: var(--font-size-body2);
-  color: var(--color-text-muted);
-}
-
-.medProgressCount em {
-  font-style: normal;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-secondary);
-  font-size: var(--font-size-h2);
-}
-
-.progressTrack {
-  height: 8px;
-  background: var(--color-bg-muted);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  background: var(--color-secondary);
-  border-radius: var(--radius-full);
-  transition: width var(--transition-slow);
-}
-
-.medCard {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-4);
-  box-shadow: var(--shadow-sm);
-}
-
-.medDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.medInfo { flex: 1; }
-
-.medName {
-  font-size: var(--font-size-body2);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-dark);
-}
-
-.medMeta {
-  font-size: var(--font-size-caption);
-  color: var(--color-text-muted);
-  margin-top: 2px;
-}
-
-.medCheck {
-  flex-shrink: 0;
-  padding: 2px;
-  transition: transform var(--transition-fast);
-}
-
-.medCheck:active { transform: scale(0.88); }
-
-.medNotice {
-  display: flex;
-  align-items: flex-start;
   gap: var(--spacing-2);
-  background: var(--color-accent-light);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-3) var(--spacing-4);
-  margin-top: var(--spacing-2);
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.filterScroll::-webkit-scrollbar { display: none; }
+
+.filterChip {
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  background: var(--color-bg-muted);
+  border: 1.5px solid transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
 }
 
-.medNoticeText {
+.filterChipActive {
+  color: #fff;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.recordCount {
   font-size: var(--font-size-caption);
-  color: var(--color-text-gray);
-  line-height: var(--line-height-relaxed);
+  color: var(--color-text-muted);
 }
 
-/* ════════════════════════════
-   진료 기록 탭
-════════════════════════════ */
+.recordCount strong {
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-bold);
+}
 
+/* 진료 카드 */
 .recordCard {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
@@ -371,70 +131,88 @@
 .recordHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--spacing-3);
   padding: var(--spacing-4);
   width: 100%;
   text-align: left;
-  gap: var(--spacing-3);
   transition: background var(--transition-fast);
 }
 
 .recordHeader:hover { background: var(--color-bg-subtle); }
 
-.recordLeft {
+.recordMain { flex: 1; min-width: 0; }
+
+.recordTopRow {
   display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-3);
-  flex: 1;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: 2px;
 }
 
-.recordDeptChip {
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  font-size: 11px;
+.memberName {
+  font-size: var(--font-size-body2);
   font-weight: var(--font-weight-bold);
-  white-space: nowrap;
-  flex-shrink: 0;
-  margin-top: 2px;
+  color: var(--color-text-dark);
+}
+
+.memberRelation {
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
 }
 
 .recordHospital {
   font-size: var(--font-size-body2);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-dark);
+  color: var(--color-text-gray);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .recordMeta {
   display: flex;
   align-items: center;
   gap: 4px;
+  margin-top: 3px;
+}
+
+.recordMeta span {
   font-size: var(--font-size-caption);
   color: var(--color-text-muted);
-  margin-top: 2px;
 }
 
 .dot {
   width: 2px; height: 2px;
   border-radius: 50%;
   background: var(--color-text-muted);
+  flex-shrink: 0;
 }
 
-/* 상세 영역 */
+.deptChip {
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+}
+
+/* 상세 펼침 */
 .recordDetail {
   border-top: 1px solid var(--color-border);
   padding: var(--spacing-4);
+  background: var(--color-bg-subtle);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
-  background: var(--color-bg-subtle);
 }
 
-.recordRow {
+.detailRow {
   display: flex;
   gap: var(--spacing-3);
 }
 
-.recordRowLabel {
+.detailLabel {
   font-size: var(--font-size-caption);
   color: var(--color-text-muted);
   font-weight: var(--font-weight-semibold);
@@ -442,14 +220,14 @@
   padding-top: 1px;
 }
 
-.recordRowValue {
+.detailValue {
   font-size: var(--font-size-body2);
   color: var(--color-text-dark);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-normal);
 }
 
-.recordMemoBox {
+.memoBox {
   display: flex;
   gap: var(--spacing-2);
   align-items: flex-start;
@@ -459,8 +237,217 @@
   border: 1px solid var(--color-border);
 }
 
-.recordMemo {
+.memoText {
   font-size: var(--font-size-caption);
   color: var(--color-text-gray);
   line-height: var(--line-height-relaxed);
+}
+
+/* ════════════════════════════
+   탭 2 · 가족관리
+════════════════════════════ */
+
+/* 안내 배너 */
+.familyBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-4);
+}
+
+.bannerIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.bannerTitle {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: 2px;
+}
+
+.bannerSub {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-gray);
+  line-height: var(--line-height-relaxed);
+}
+
+/* 구성원 카드 */
+.memberCard {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-4);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.memberCardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.memberCardInfo { flex: 1; }
+
+.memberNameRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: 3px;
+}
+
+.memberCardName {
+  font-size: var(--font-size-body1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+
+.memberCardRelation {
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+}
+
+.memberCardSub {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+}
+
+.memberCardDivider {
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* 통계 행 */
+.memberStats {
+  display: flex;
+  align-items: center;
+}
+
+.memberStat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.memberStatNum {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  line-height: 1;
+}
+
+.memberStatLabel {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+}
+
+.memberStatDivider {
+  width: 1px;
+  height: 32px;
+  background: var(--color-border);
+}
+
+/* 최근 방문 */
+.memberLastVisit {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+}
+
+/* 예정 예약 */
+.memberNextBooking {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-secondary);
+  background: var(--color-secondary-light);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-2) var(--spacing-3);
+}
+
+/* 건강 지표 요약 */
+.memberVitals {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.vitalPill {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-2) var(--spacing-1);
+  border: 1px solid var(--color-border);
+}
+
+.vitalPillLabel {
+  font-size: 9px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.vitalPillValue {
+  font-size: 13px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.vitalPillUnit {
+  font-size: 8px;
+  color: var(--color-text-muted);
+}
+
+/* 구성원 추가 */
+.addMemberBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  padding: var(--spacing-4);
+  border: 2px dashed var(--color-primary);
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  background: var(--color-bg);
+  transition: background var(--transition-fast);
+}
+
+.addMemberBtn:hover {
+  background: var(--color-primary-light);
+}
+
+.familyNotice {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: var(--line-height-relaxed);
+  padding: 0 var(--spacing-4);
 }
