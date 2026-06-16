@@ -8,6 +8,7 @@ import HospitalDetail from './pages/HospitalDetail/HospitalDetail';
 import BookingPage    from './pages/Booking/BookingPage';
 import BookingList    from './pages/BookingList/BookingList';
 import MyPage         from './pages/MyPage/MyPage';
+import SearchPage     from './pages/Search/SearchPage';
 import './App.css';
 
 const TABS_WITH_NAV = ['home', 'search', 'bookings', 'health', 'mypage'];
@@ -26,6 +27,7 @@ export default function App() {
   const handleTabChange = (key) => {
     setTab(key);
     if (key === 'home')     go('home');
+    if (key === 'search')   go('search');
     if (key === 'bookings') go('bookings');
     if (key === 'mypage')   go('mypage');
   };
@@ -92,6 +94,19 @@ export default function App() {
       {screen === 'bookings' && (
         <BookingList
           onBack={() => { setTab('home'); go('home'); }}
+        />
+      )}
+
+      {screen === 'search' && (
+        <SearchPage
+          onSelectHospital={(h) => {
+            setHospital(h);
+            go('hospitalDetail');
+          }}
+          onSelectDept={(d) => {
+            setDept(d);
+            go('hospitalList');
+          }}
         />
       )}
 
