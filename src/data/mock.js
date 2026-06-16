@@ -177,6 +177,10 @@ export const MY_BOOKINGS = [
     dDay: 'D-1',
     waitCount: 3,
     waitTime: 15,
+    memberName: '최슬기',
+    memberRelation: '본인',
+    memberColor: '#2563EB',
+    memberBg: '#EFF6FF',
   },
   {
     id: 'B002',
@@ -187,6 +191,10 @@ export const MY_BOOKINGS = [
     date: '2026-06-01',
     time: '오후 2:00',
     dDay: null,
+    memberName: '최슬기',
+    memberRelation: '본인',
+    memberColor: '#2563EB',
+    memberBg: '#EFF6FF',
   },
   {
     id: 'B003',
@@ -197,6 +205,10 @@ export const MY_BOOKINGS = [
     date: '2026-05-20',
     time: '오전 11:00',
     dDay: null,
+    memberName: '김지우',
+    memberRelation: '자녀',
+    memberColor: '#EA580C',
+    memberBg: '#FFF7ED',
   },
 ];
 

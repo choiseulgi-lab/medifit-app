@@ -38,7 +38,17 @@ export default function BookingList({ onBack }) {
                 </div>
 
                 <div className={styles.cardBody}>
-                  <p className={styles.hospitalName}>{b.hospital}</p>
+                  <div className={styles.hospitalRow}>
+                    <p className={styles.hospitalName}>{b.hospital}</p>
+                    {b.memberName && (
+                      <span
+                        className={styles.memberBadge}
+                        style={{ background: b.memberBg, color: b.memberColor }}
+                      >
+                        {b.memberName} · {b.memberRelation}
+                      </span>
+                    )}
+                  </div>
                   <p className={styles.doctorMeta}>{b.dept} · {b.doctor}</p>
                 </div>
 
