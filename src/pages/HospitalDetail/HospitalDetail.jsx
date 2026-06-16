@@ -1,5 +1,6 @@
 import { MapPin, Phone, CheckCircle2, CalendarDays } from 'lucide-react';
 import { TopBar } from '../../components';
+import { DOCTORS } from '../../data/mock';
 import styles from './HospitalDetail.module.css';
 
 const HOURS = [
@@ -14,6 +15,7 @@ const HOURS = [
 
 export default function HospitalDetail({ hospital, onBack, onBook }) {
   const h = hospital ?? { name: '강남 연세내과의원', dept: '내과', address: '서울 강남구 역삼동 123', phone: '02-1234-5678', waitCount: 3, waitTime: 15 };
+  const doctors = DOCTORS.filter(d => d.hospitalId === (hospital?.id ?? 1)).slice(0, 3);
 
   return (
     <>
@@ -60,6 +62,21 @@ export default function HospitalDetail({ hospital, onBack, onBook }) {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* 의사 목록 */}
+        <div className={styles.section}>
+          <p className={styles.secTitle}>의료진</p>
+          {doctors.map(d => (
+            <div key={d.id} className={styles.doctorRow}>
+              <div className={styles.avatar}>👨‍⚕️</div>
+              <div style={{ flex: 1 }}>
+                <p className={styles.doctorName}>{d.name} {d.title}</p>
+                <p className={styles.doctorSpec}>{d.specialty.join(' · ')}</p>
+              </div>
+              {d.available && <span className={styles.availChip}>예약 가능</span>}
+            </div>
+          ))}
         </div>
 
       </div>
