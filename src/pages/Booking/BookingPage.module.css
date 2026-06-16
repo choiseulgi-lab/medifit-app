@@ -1,0 +1,353 @@
+.page {
+  padding: var(--spacing-4);
+  padding-bottom: 100px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* ── 단계 표시 ── */
+.stepper {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-4) var(--spacing-4) var(--spacing-3);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+.stepItem {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.stepDot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-bg-muted);
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+.stepDotActive { background: var(--color-primary); color: #fff; }
+.stepDotDone   { background: var(--color-secondary); color: #fff; }
+.stepLabel {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  margin-left: 6px;
+  white-space: nowrap;
+}
+.stepLabelActive { color: var(--color-primary); font-weight: var(--font-weight-semibold); }
+.stepLine {
+  flex: 1;
+  height: 1.5px;
+  background: var(--color-border);
+  margin: 0 var(--spacing-2);
+  transition: background var(--transition-fast);
+}
+.stepLineDone { background: var(--color-secondary); }
+
+/* ── 공통 ── */
+.sectionTitle {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-gray);
+  margin-bottom: var(--spacing-3);
+}
+
+/* ── Step 0: 의사 카드 ── */
+.doctorCard {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  width: 100%;
+  padding: var(--spacing-4);
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--spacing-3);
+  text-align: left;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.doctorCardActive {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+.doctorCardDisabled { opacity: 0.45; cursor: not-allowed; }
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.doctorInfo { flex: 1; }
+.doctorName {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+.doctorSpec {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+.doctorTags {
+  display: flex;
+  gap: 4px;
+  margin-top: var(--spacing-2);
+  flex-wrap: wrap;
+}
+.tag {
+  padding: 2px 8px;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  color: var(--color-text-gray);
+}
+.doctorRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-2);
+}
+.availBadge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--color-secondary-light);
+  color: var(--color-secondary);
+}
+.unavailBadge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--color-bg-muted);
+  color: var(--color-text-muted);
+}
+
+/* ── Step 1: 날짜 ── */
+.dateScroll {
+  display: flex;
+  gap: var(--spacing-2);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-2);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.dateScroll::-webkit-scrollbar { display: none; }
+.dateItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 52px;
+  padding: var(--spacing-2) var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg);
+  position: relative;
+  gap: 4px;
+  flex-shrink: 0;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.dateWeekdayLabel {
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+.dateDayNum {
+  font-size: var(--font-size-body1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+.dateWeekend .dateWeekdayLabel,
+.dateWeekend .dateDayNum { color: var(--color-error); }
+.dateActive {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+.dateActive .dateDayNum { color: var(--color-primary); }
+.todayDot {
+  position: absolute;
+  bottom: 6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+/* ── Step 1: 시간 ── */
+.timeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-2);
+}
+.timeBtn {
+  padding: var(--spacing-3);
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg);
+  font-size: var(--font-size-body2);
+  color: var(--color-text-dark);
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-fast);
+}
+.timeBtnActive {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+.timeBtnUnavail {
+  background: var(--color-bg-muted);
+  color: var(--color-text-disabled);
+  border-color: var(--color-border);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+.timeLegend {
+  display: flex;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-3);
+}
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+}
+.legendDotAvail {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-primary);
+  background: var(--color-bg);
+}
+.legendDotUnavail {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--color-bg-muted);
+  border: 1.5px solid var(--color-border);
+}
+
+/* ── Step 2: 확인 카드 ── */
+.confirmCard {
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  margin-bottom: var(--spacing-4);
+}
+.confirmRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-3) var(--spacing-4);
+}
+.confirmLabel {
+  font-size: var(--font-size-body2);
+  color: var(--color-text-muted);
+}
+.confirmValue {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-dark);
+}
+.confirmDivider { height: 1px; background: var(--color-border); }
+
+.confirmNotice {
+  background: var(--color-accent-light);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+}
+.noticeTitle {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-2);
+}
+.noticeText {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-gray);
+  line-height: var(--line-height-relaxed);
+}
+
+/* ── 하단 CTA ── */
+.bottomCta {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width-mobile);
+  padding: var(--spacing-3) var(--spacing-4) var(--spacing-5);
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  z-index: 40;
+}
+.ctaBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  height: var(--btn-height-l);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--btn-radius-l);
+  font-size: var(--font-size-btn-l);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+  transition: background var(--transition-fast);
+}
+.ctaBtn:disabled {
+  background: var(--color-text-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.ctaBtn:not(:disabled):hover { background: var(--color-primary-dark); }
+
+/* ── 완료 화면 ── */
+.donePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: var(--spacing-8);
+  text-align: center;
+  gap: var(--spacing-4);
+}
+.doneIcon {
+  animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes pop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.doneTitle {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+}
+.doneSub {
+  font-size: var(--font-size-body2);
+  color: var(--color-text-gray);
+  line-height: var(--line-height-relaxed);
+}
+.doneBtn {
+  margin-top: var(--spacing-4);
+  padding: var(--spacing-3) var(--spacing-8);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--btn-radius-l);
+  font-size: var(--font-size-btn-m);
+  font-weight: var(--font-weight-semibold);
+}
