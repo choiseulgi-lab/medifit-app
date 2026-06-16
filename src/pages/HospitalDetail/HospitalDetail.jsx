@@ -1,22 +1,48 @@
-import { MapPin, Phone, CheckCircle2, CalendarDays } from 'lucide-react';
+import { MapPin, Phone, CheckCircle2, CalendarDays, Star } from 'lucide-react';
 import { TopBar } from '../../components';
-import { DOCTORS } from '../../data/mock';
+import { DOCTORS, HOSPITAL_REVIEWS } from '../../data/mock';
 import styles from './HospitalDetail.module.css';
 
 const HOURS = [
   { day: '오늘 (월)', time: '09:00 – 18:00', today: true },
-  { day: '화요일', time: '09:00 – 18:00' },
-  { day: '수요일', time: '09:00 – 18:00' },
-  { day: '목요일', time: '09:00 – 18:00' },
-  { day: '금요일', time: '09:00 – 17:00' },
-  { day: '토요일', time: '09:00 – 13:00' },
-  { day: '일요일', time: '휴진' },
+  { day: '화요일',   time: '09:00 – 18:00' },
+  { day: '수요일',   time: '09:00 – 18:00' },
+  { day: '목요일',   time: '09:00 – 18:00' },
+  { day: '금요일',   time: '09:00 – 17:00' },
+  { day: '토요일',   time: '09:00 – 13:00' },
+  { day: '일요일',   time: '휴진' },
 ];
 
+function StarRow({ rating, size = 14 }) {
+  return (
+    <span className={styles.starRow}>
+      {[1, 2, 3, 4, 5].map(n => (
+        <Star
+          key={n}
+          size={size}
+          strokeWidth={1.5}
+          color="var(--color-accent)"
+          fill={n <= rating ? 'var(--color-accent)' : 'none'}
+        />
+      ))}
+    </span>
+  );
+}
+
 export default function HospitalDetail({ hospital, onBack, onBook }) {
-  const h = hospital ?? { name: '강남 연세내과의원', dept: '내과', address: '서울 강남구 역삼동 123', phone: '02-1234-5678', waitCount: 3, waitTime: 15 };
+  const h = hospital ?? {
+    name: '강남 연세내과의원', dept: '내과',
+    address: '서울 강남구 역삼동 123', phone: '02-1234-5678',
+    waitCount: 3, waitTime: 15, rating: 4.8, reviewCount: 312,
+  };
+
   const doctorsByHospital = DOCTORS.filter(d => d.hospitalId === hospital?.id);
   const doctors = (doctorsByHospital.length > 0 ? doctorsByHospital : DOCTORS).slice(0, 3);
+
+  const reviews = HOSPITAL_REVIEWS.filter(r => r.hospitalId === (hospital?.id ?? 1));
+  const avgRating = reviews.length
+    ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)
+    : h.rating ?? 4.8;
 
   return (
     <>
@@ -65,7 +91,7 @@ export default function HospitalDetail({ hospital, onBack, onBook }) {
           </div>
         </div>
 
-        {/* 의사 목록 */}
+        {/* 의료진 */}
         <div className={styles.section}>
           <p className={styles.secTitle}>의료진</p>
           {doctors.map(d => (
@@ -78,6 +104,42 @@ export default function HospitalDetail({ hospital, onBack, onBook }) {
               {d.available && <span className={styles.availChip}>예약 가능</span>}
             </div>
           ))}
+        </div>
+
+        {/* 리뷰 */}
+        <div className={styles.section}>
+          <div className={styles.reviewHeader}>
+            <p className={styles.secTitle}>리뷰</p>
+            <div className={styles.reviewSummary}>
+              <Star size={16} color="var(--color-accent)" fill="var(--color-accent)" />
+              <span className={styles.reviewAvg}>{avgRating}</span>
+              <span className={styles.reviewTotal}>({h.reviewCount ?? reviews.length})</span>
+            </div>
+          </div>
+
+          {reviews.length === 0 ? (
+            <p className={styles.reviewEmpty}>아직 리뷰가 없어요. 첫 리뷰를 남겨보세요!</p>
+          ) : (
+            <div className={styles.reviewList}>
+              {reviews.map(r => (
+                <div key={r.id} className={styles.reviewCard}>
+                  <div className={styles.reviewTop}>
+                    <div className={styles.reviewAuthorWrap}>
+                      <span className={styles.reviewAuthor}>{r.author}</span>
+                      <span className={styles.reviewDate}>{r.date}</span>
+                    </div>
+                    <StarRow rating={r.rating} />
+                  </div>
+                  <div className={styles.reviewTags}>
+                    {r.tags.map(t => (
+                      <span key={t} className={styles.reviewTag}>{t}</span>
+                    ))}
+                  </div>
+                  <p className={styles.reviewContent}>{r.content}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
       </div>
