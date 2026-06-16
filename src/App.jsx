@@ -7,6 +7,7 @@ import HospitalList   from './pages/HospitalList/HospitalList';
 import HospitalDetail from './pages/HospitalDetail/HospitalDetail';
 import BookingPage    from './pages/Booking/BookingPage';
 import BookingList    from './pages/BookingList/BookingList';
+import MyPage         from './pages/MyPage/MyPage';
 import './App.css';
 
 const TABS_WITH_NAV = ['home', 'search', 'bookings', 'health', 'mypage'];
@@ -26,7 +27,7 @@ export default function App() {
     setTab(key);
     if (key === 'home')     go('home');
     if (key === 'bookings') go('bookings');
-    // 미구현 탭은 홈으로 유지
+    if (key === 'mypage')   go('mypage');
   };
 
   const showNav = TABS_WITH_NAV.includes(screen);
@@ -92,6 +93,10 @@ export default function App() {
         <BookingList
           onBack={() => { setTab('home'); go('home'); }}
         />
+      )}
+
+      {screen === 'mypage' && (
+        <MyPage />
       )}
 
       {showNav && (
