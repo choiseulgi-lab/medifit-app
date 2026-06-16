@@ -241,7 +241,6 @@ export default function HealthPage() {
             {t}
           </button>
         ))}
-        <div className={styles.tabIndicator} style={{ left: `calc(${tab} * 33.333%)` }} />
       </div>
 
       {/* 탭 콘텐츠 */}
