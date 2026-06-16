@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { CalendarDays, Clock, ChevronRight } from 'lucide-react';
 import { TopBar } from '../../components';
 import styles from './BookingList.module.css';
@@ -10,22 +11,38 @@ const STATUS_MAP = {
 
 const TABS = ['전체', '예정', '완료/취소'];
 
+const FILTER = {
+  '전체':    () => true,
+  '예정':    b => b.status === 'scheduled',
+  '완료/취소': b => b.status === 'completed' || b.status === 'cancelled',
+};
+
 export default function BookingList({ bookings = [], onBack }) {
+  const [activeTab, setActiveTab] = useState('전체');
+  const filtered = bookings.filter(FILTER[activeTab]);
+
   return (
     <>
       <TopBar title="예약 관리" onBack={onBack} />
 
       <div className={styles.page}>
         <div className={styles.tabRow}>
-          {TABS.map((t, i) => (
-            <button key={t} className={[styles.tab, i === 0 && styles.tabActive].filter(Boolean).join(' ')}>
+          {TABS.map(t => (
+            <button
+              key={t}
+              className={[styles.tab, activeTab === t && styles.tabActive].filter(Boolean).join(' ')}
+              onClick={() => setActiveTab(t)}
+            >
               {t}
             </button>
           ))}
         </div>
 
         <div className={styles.list}>
-          {bookings.map(b => {
+          {filtered.length === 0 && (
+            <div className={styles.empty}>예약 내역이 없어요</div>
+          )}
+          {filtered.map(b => {
             const status = STATUS_MAP[b.status];
             return (
               <div key={b.id} className={[styles.card, b.status === 'cancelled' && styles.cardCancelled].filter(Boolean).join(' ')}>

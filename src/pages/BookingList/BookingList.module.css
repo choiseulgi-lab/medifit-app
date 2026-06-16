@@ -2,6 +2,13 @@
   padding-bottom: 80px;
 }
 
+.empty {
+  text-align: center;
+  padding: var(--spacing-12) var(--spacing-4);
+  font-size: var(--font-size-body2);
+  color: var(--color-text-muted);
+}
+
 /* ── 탭 ── */
 .tabRow {
   display: flex;
