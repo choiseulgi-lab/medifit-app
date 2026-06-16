@@ -11,6 +11,7 @@ import BookingList    from './pages/BookingList/BookingList';
 import MyPage         from './pages/MyPage/MyPage';
 import SearchPage     from './pages/Search/SearchPage';
 import HealthPage     from './pages/Health/HealthPage';
+import { MY_BOOKINGS } from './data/mock';
 import './App.css';
 
 const TABS_WITH_NAV = ['home', 'search', 'bookings', 'health', 'mypage'];
@@ -19,6 +20,7 @@ export default function App() {
   const [screen, setScreen] = useState('home');
   const [tab, setTab]       = useState('home');
 
+  const [bookings, setBookings]     = useState(MY_BOOKINGS);
   const [member, setMember]         = useState(null);
   const [memberNext, setMemberNext] = useState('symptom'); // MemberSelect 이후 목적지
   const [symptoms, setSymptoms]     = useState([]);
@@ -126,7 +128,10 @@ export default function App() {
           duration={duration}
           intensity={intensity}
           onBack={() => go('hospitalDetail')}
-          onDone={() => {
+          onDone={(newBooking) => {
+            setBookings(prev => [newBooking, ...prev]);
+          }}
+          onNavigateDone={() => {
             setTab('bookings');
             go('bookings');
           }}
@@ -135,6 +140,7 @@ export default function App() {
 
       {screen === 'bookings' && (
         <BookingList
+          bookings={bookings}
           onBack={() => { setTab('home'); go('home'); }}
         />
       )}

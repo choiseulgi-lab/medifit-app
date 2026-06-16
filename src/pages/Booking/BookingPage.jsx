@@ -28,7 +28,7 @@ function buildDates() {
 
 const DATES = buildDates();
 
-export default function BookingPage({ hospital, member, symptoms = [], duration, intensity, onBack, onDone }) {
+export default function BookingPage({ hospital, member, symptoms = [], duration, intensity, onBack, onDone, onNavigateDone }) {
   const h = hospital ?? { name: '강남 연세내과의원', dept: '내과', id: 1 };
   // 해당 병원 의사가 없으면 전체 의사 목록으로 fallback
   const doctorsByHospital = DOCTORS.filter(d => d.hospitalId === hospital?.id);
@@ -49,6 +49,22 @@ export default function BookingPage({ hospital, member, symptoms = [], duration,
   const handleNext = () => {
     if (step < STEPS.length - 1) { setStep(s => s + 1); return; }
     setDone(true);
+    onDone?.({
+      id: `B${Date.now()}`,
+      status: 'scheduled',
+      hospital: h.name,
+      doctor: `${doctor?.name} ${doctor?.title}`,
+      dept: h.dept,
+      date,
+      time,
+      dDay: null,
+      waitCount: h.waitCount ?? 0,
+      waitTime: h.waitTime ?? 0,
+      memberName: member?.name,
+      memberRelation: member?.relation,
+      memberColor: member?.color,
+      memberBg: member?.bg,
+    });
   };
 
   /* ── 완료 화면 ── */
@@ -64,7 +80,7 @@ export default function BookingPage({ hospital, member, symptoms = [], duration,
           {h.name}<br />
           {doctor?.name} {doctor?.title} · {date} {time}
         </p>
-        <button className={styles.doneBtn} onClick={onDone}>예약 확인하기</button>
+        <button className={styles.doneBtn} onClick={onNavigateDone}>예약 확인하기</button>
       </div>
     );
   }

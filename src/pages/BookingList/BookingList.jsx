@@ -1,6 +1,5 @@
 import { CalendarDays, Clock, ChevronRight } from 'lucide-react';
 import { TopBar } from '../../components';
-import { MY_BOOKINGS } from '../../data/mock';
 import styles from './BookingList.module.css';
 
 const STATUS_MAP = {
@@ -11,7 +10,7 @@ const STATUS_MAP = {
 
 const TABS = ['전체', '예정', '완료/취소'];
 
-export default function BookingList({ onBack }) {
+export default function BookingList({ bookings = [], onBack }) {
   return (
     <>
       <TopBar title="예약 관리" onBack={onBack} />
@@ -26,7 +25,7 @@ export default function BookingList({ onBack }) {
         </div>
 
         <div className={styles.list}>
-          {MY_BOOKINGS.map(b => {
+          {bookings.map(b => {
             const status = STATUS_MAP[b.status];
             return (
               <div key={b.id} className={[styles.card, b.status === 'cancelled' && styles.cardCancelled].filter(Boolean).join(' ')}>
