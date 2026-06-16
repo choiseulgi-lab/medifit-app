@@ -30,7 +30,9 @@ const DATES = buildDates();
 
 export default function BookingPage({ hospital, member, symptoms = [], duration, intensity, onBack, onDone }) {
   const h = hospital ?? { name: '강남 연세내과의원', dept: '내과', id: 1 };
-  const doctors = DOCTORS.filter(d => d.hospitalId === (hospital?.id ?? 1)).slice(0, 3);
+  // 해당 병원 의사가 없으면 전체 의사 목록으로 fallback
+  const doctorsByHospital = DOCTORS.filter(d => d.hospitalId === hospital?.id);
+  const doctors = (doctorsByHospital.length > 0 ? doctorsByHospital : DOCTORS).slice(0, 3);
 
   const [step, setStep]   = useState(0);
   const [doctor, setDoctor] = useState(null);
