@@ -9,6 +9,7 @@ import BookingPage    from './pages/Booking/BookingPage';
 import BookingList    from './pages/BookingList/BookingList';
 import MyPage         from './pages/MyPage/MyPage';
 import SearchPage     from './pages/Search/SearchPage';
+import HealthPage     from './pages/Health/HealthPage';
 import './App.css';
 
 const TABS_WITH_NAV = ['home', 'search', 'bookings', 'health', 'mypage'];
@@ -29,6 +30,7 @@ export default function App() {
     if (key === 'home')     go('home');
     if (key === 'search')   go('search');
     if (key === 'bookings') go('bookings');
+    if (key === 'health')   go('health');
     if (key === 'mypage')   go('mypage');
   };
 
@@ -108,6 +110,10 @@ export default function App() {
             go('hospitalList');
           }}
         />
+      )}
+
+      {screen === 'health' && (
+        <HealthPage />
       )}
 
       {screen === 'mypage' && (

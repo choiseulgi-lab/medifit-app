@@ -206,3 +206,76 @@ export const TIME_SLOTS = {
 };
 
 export const UNAVAILABLE_SLOTS = ['09:00', '09:30', '14:00', '16:30'];
+
+/* ── 건강 지표 (최근 7일) ── */
+export const HEALTH_VITALS = {
+  bloodPressure: {
+    label: '혈압', unit: 'mmHg',
+    current: '118/76', status: 'normal',
+    week: [
+      { day: '월', sys: 120, dia: 78 },
+      { day: '화', sys: 122, dia: 80 },
+      { day: '수', sys: 118, dia: 76 },
+      { day: '목', sys: 125, dia: 82 },
+      { day: '금', sys: 119, dia: 77 },
+      { day: '토', sys: 116, dia: 74 },
+      { day: '일', sys: 118, dia: 76 },
+    ],
+  },
+  weight: {
+    label: '체중', unit: 'kg',
+    current: '62.4', status: 'normal',
+    week: [63.1, 62.9, 62.7, 62.8, 62.5, 62.4, 62.4],
+  },
+  bloodSugar: {
+    label: '혈당', unit: 'mg/dL',
+    current: '95', status: 'normal',
+    week: [98, 102, 95, 99, 93, 97, 95],
+  },
+  steps: {
+    label: '걸음 수', unit: '걸음',
+    current: '8,432', status: 'good',
+    week: [6200, 7800, 9100, 5400, 8200, 10300, 8432],
+  },
+};
+
+/* ── 복약 목록 ── */
+export const MEDICATIONS = [
+  { id: 1, name: '종근당 비타민D', dose: '1정', times: ['오전 8시'], taken: true,  color: '#F59E0B' },
+  { id: 2, name: '오메가3',        dose: '2캡슐', times: ['오전 8시', '오후 8시'], taken: true,  color: '#10B981' },
+  { id: 3, name: '마그네슘',       dose: '1정', times: ['오후 9시'], taken: false, color: '#8B5CF6' },
+];
+
+/* ── 최근 진료 기록 ── */
+export const MEDICAL_RECORDS = [
+  {
+    id: 1,
+    date: '2026-06-01',
+    hospital: '미래 신경과의원',
+    doctor: '최성훈 원장',
+    dept: '신경과',
+    diagnosis: '긴장성 두통',
+    prescription: ['이부프로펜 400mg', '근이완제'],
+    memo: '과도한 업무 스트레스로 인한 긴장성 두통. 규칙적인 수면 권장.',
+  },
+  {
+    id: 2,
+    date: '2026-04-15',
+    hospital: '강남 연세내과의원',
+    doctor: '김민준 원장',
+    dept: '내과',
+    diagnosis: '급성 상기도감염 (감기)',
+    prescription: ['아세트아미노펜', '항히스타민제', '진해거담제'],
+    memo: '발열 38.2도. 수분 섭취 및 충분한 휴식 권장.',
+  },
+  {
+    id: 3,
+    date: '2026-02-20',
+    hospital: '한강 이비인후과',
+    doctor: '정다은 원장',
+    dept: '이비인후과',
+    diagnosis: '만성 비염',
+    prescription: ['스테로이드 비강 스프레이'],
+    memo: '환절기 악화. 3개월 후 재진 권장.',
+  },
+];
