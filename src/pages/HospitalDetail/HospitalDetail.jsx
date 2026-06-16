@@ -15,7 +15,8 @@ const HOURS = [
 
 export default function HospitalDetail({ hospital, onBack, onBook }) {
   const h = hospital ?? { name: '강남 연세내과의원', dept: '내과', address: '서울 강남구 역삼동 123', phone: '02-1234-5678', waitCount: 3, waitTime: 15 };
-  const doctors = DOCTORS.filter(d => d.hospitalId === (hospital?.id ?? 1)).slice(0, 3);
+  const doctorsByHospital = DOCTORS.filter(d => d.hospitalId === hospital?.id);
+  const doctors = (doctorsByHospital.length > 0 ? doctorsByHospital : DOCTORS).slice(0, 3);
 
   return (
     <>
