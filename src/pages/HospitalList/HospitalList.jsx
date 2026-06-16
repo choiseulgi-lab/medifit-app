@@ -14,7 +14,7 @@ function WaitBadge({ count, isOpen }) {
   return              <span className={`${styles.waitBadge} ${styles.waitBadgeHigh}`}>대기 {count}명</span>;
 }
 
-export default function HospitalList({ dept = '내과', onBack, onSelect }) {
+export default function HospitalList({ dept = '내과', onBack, onSelect, onBook }) {
   const [sort, setSort]   = useState('거리순');
   const [view, setView]   = useState('list');
 
@@ -91,7 +91,7 @@ export default function HospitalList({ dept = '내과', onBack, onSelect }) {
                   )}
                 </div>
                 {h.isOpen && (
-                  <button className={styles.bookBtn} onClick={e => { e.stopPropagation(); onSelect(h); }}>
+                  <button className={styles.bookBtn} onClick={e => { e.stopPropagation(); onBook?.(h); }}>
                     예약하기
                   </button>
                 )}

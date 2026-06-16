@@ -28,7 +28,7 @@ function buildDates() {
 
 const DATES = buildDates();
 
-export default function BookingPage({ hospital, member, onBack, onDone }) {
+export default function BookingPage({ hospital, member, symptoms = [], duration, intensity, onBack, onDone }) {
   const h = hospital ?? { name: '강남 연세내과의원', dept: '내과', id: 1 };
   const doctors = DOCTORS.filter(d => d.hospitalId === (hospital?.id ?? 1)).slice(0, 3);
 
@@ -253,6 +253,24 @@ export default function BookingPage({ hospital, member, onBack, onDone }) {
                 <span className={styles.confirmLabel}>시간</span>
                 <span className={styles.confirmValue}>{time}</span>
               </div>
+              {symptoms.length > 0 && (
+                <>
+                  <div className={styles.confirmDivider} />
+                  <div className={styles.confirmRow}>
+                    <span className={styles.confirmLabel}>증상</span>
+                    <span className={styles.confirmValue}>{symptoms.join(', ')}</span>
+                  </div>
+                </>
+              )}
+              {duration && (
+                <>
+                  <div className={styles.confirmDivider} />
+                  <div className={styles.confirmRow}>
+                    <span className={styles.confirmLabel}>지속기간</span>
+                    <span className={styles.confirmValue}>{duration}</span>
+                  </div>
+                </>
+              )}
             </div>
 
             <div className={styles.confirmNotice}>

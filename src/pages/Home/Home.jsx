@@ -1,22 +1,21 @@
 import {
   MapPin, ChevronDown, Bell, Search,
   Heart, Baby, Sparkles, Bone, Eye, Ear,
-  CalendarDays, Clock, ChevronRight,
-  CheckCircle2, Zap,
+  CalendarDays, ChevronRight,
+  CheckCircle2,
 } from 'lucide-react';
+import { MY_BOOKINGS } from '../../data/mock';
 import styles from './Home.module.css';
 
-/* ── 진료과 데이터 ── */
 const DEPARTMENTS = [
-  { label: '내과',    Icon: Heart,     bg: '#EFF6FF', color: '#2563EB' },
-  { label: '소아과',  Icon: Baby,      bg: '#FFF7ED', color: '#EA580C' },
-  { label: '피부과',  Icon: Sparkles,  bg: '#FDF4FF', color: '#9333EA' },
-  { label: '정형외과', Icon: Bone,     bg: '#F0FDF4', color: '#16A34A' },
-  { label: '안과',    Icon: Eye,       bg: '#FEFCE8', color: '#CA8A04' },
-  { label: '이비인후과', Icon: Ear,    bg: '#FFF1F2', color: '#E11D48' },
+  { label: '내과',       Icon: Heart,    bg: '#EFF6FF', color: '#2563EB' },
+  { label: '소아과',     Icon: Baby,     bg: '#FFF7ED', color: '#EA580C' },
+  { label: '피부과',     Icon: Sparkles, bg: '#FDF4FF', color: '#9333EA' },
+  { label: '정형외과',   Icon: Bone,     bg: '#F0FDF4', color: '#16A34A' },
+  { label: '안과',       Icon: Eye,      bg: '#FEFCE8', color: '#CA8A04' },
+  { label: '이비인후과', Icon: Ear,      bg: '#FFF1F2', color: '#E11D48' },
 ];
 
-/* ── 건강 팁 데이터 ── */
 const TIPS = [
   { tag: '예방', title: '환절기 면역력\n관리법', desc: '일교차가 큰 요즘, 면역력을 높이는 생활 습관을 알아보세요.', bg: '#EFF6FF', color: '#1E3A5F' },
   { tag: '건강팁', title: '충분한 수면이\n건강의 기본', desc: '성인 권장 수면 시간은 7~9시간. 숙면의 조건을 확인하세요.', bg: '#F0FDF4', color: '#14532D' },
@@ -24,7 +23,10 @@ const TIPS = [
   { tag: '운동', title: '하루 30분 걷기의\n놀라운 효과', desc: '심혈관 건강부터 정신 건강까지, 걷기의 효과를 알아보세요.', bg: '#FDF4FF', color: '#3B0764' },
 ];
 
-export default function Home({ onBookingClick }) {
+/* 가장 가까운 예정 예약 */
+const nextBooking = MY_BOOKINGS.find(b => b.status === 'scheduled');
+
+export default function Home({ onBookingClick, onDeptClick }) {
   return (
     <>
       {/* ── 헤더 ── */}
@@ -34,7 +36,6 @@ export default function Home({ onBookingClick }) {
           <span className={styles.locationName}>서울 강남구</span>
           <ChevronDown size={15} color="var(--color-text-muted)" />
         </button>
-
         <div className={styles.headerRight}>
           <button className={styles.iconBtn}>
             <Search size={22} />
@@ -46,10 +47,9 @@ export default function Home({ onBookingClick }) {
         </div>
       </header>
 
-      {/* ── 스크롤 영역 ── */}
       <div className={styles.page}>
 
-        {/* ── Hero / CTA ── */}
+        {/* ── Hero ── */}
         <section className={styles.hero}>
           <p className={styles.greeting}>오늘도 건강한 하루</p>
           <h2 className={styles.heroTitle}>
@@ -70,10 +70,13 @@ export default function Home({ onBookingClick }) {
               전체보기 <ChevronRight size={14} />
             </button>
           </div>
-
           <div className={styles.deptGrid}>
             {DEPARTMENTS.map(({ label, Icon, bg, color }) => (
-              <button key={label} className={styles.deptItem}>
+              <button
+                key={label}
+                className={styles.deptItem}
+                onClick={() => onDeptClick?.(label)}
+              >
                 <span className={styles.deptIcon} style={{ backgroundColor: bg }}>
                   <Icon size={22} color={color} strokeWidth={1.8} />
                 </span>
@@ -92,28 +95,35 @@ export default function Home({ onBookingClick }) {
             </button>
           </div>
 
-          <div className={styles.bookingCard}>
-            <div className={styles.bookingTop}>
-              <div>
-                <p className={styles.bookingHospital}>서울 연세내과의원</p>
-                <p className={styles.bookingMeta}>내과 · 김민준 원장</p>
+          {nextBooking ? (
+            <div className={styles.bookingCard}>
+              <div className={styles.bookingTop}>
+                <div>
+                  <p className={styles.bookingHospital}>{nextBooking.hospital}</p>
+                  <p className={styles.bookingMeta}>{nextBooking.dept} · {nextBooking.doctor}</p>
+                </div>
+                {nextBooking.dDay && (
+                  <span className={styles.dDayBadge}>{nextBooking.dDay}</span>
+                )}
               </div>
-              <span className={styles.dDayBadge}>D-1</span>
+              <div className={styles.bookingDivider} />
+              <div className={styles.bookingBottom}>
+                <div className={styles.bookingDateTime}>
+                  <CalendarDays size={15} color="var(--color-primary)" />
+                  {nextBooking.date} {nextBooking.time}
+                </div>
+                <div className={styles.bookingActions}>
+                  <button className={styles.bookingActionBtn}>변경</button>
+                  <button className={styles.bookingActionBtn}>취소</button>
+                </div>
+              </div>
             </div>
-
-            <div className={styles.bookingDivider} />
-
-            <div className={styles.bookingBottom}>
-              <div className={styles.bookingDateTime}>
-                <CalendarDays size={15} color="var(--color-primary)" />
-                내일 오전 10:30
-              </div>
-              <div className={styles.bookingActions}>
-                <button className={styles.bookingActionBtn}>변경</button>
-                <button className={styles.bookingActionBtn}>취소</button>
-              </div>
+          ) : (
+            <div className={styles.emptyBooking}>
+              <p className={styles.emptyText}>예정된 예약이 없어요</p>
+              <button className={styles.emptyBtn} onClick={onBookingClick}>예약하기</button>
             </div>
-          </div>
+          )}
         </section>
 
         {/* ── 실시간 대기 현황 ── */}
@@ -124,7 +134,6 @@ export default function Home({ onBookingClick }) {
               최근 방문 <ChevronRight size={14} />
             </button>
           </div>
-
           <div className={styles.waitCard}>
             <div className={styles.waitTop}>
               <div>
@@ -132,11 +141,9 @@ export default function Home({ onBookingClick }) {
                 <p className={styles.waitMeta}>내과 · 강남구 역삼동</p>
               </div>
               <span className={styles.waitLiveBadge}>
-                <span className={styles.liveDot} />
-                LIVE
+                <span className={styles.liveDot} />LIVE
               </span>
             </div>
-
             <div className={styles.waitStats}>
               <div className={styles.waitStat}>
                 <span className={styles.waitStatValue}>3</span>
@@ -151,7 +158,6 @@ export default function Home({ onBookingClick }) {
                 <span className={styles.waitStatUnit}>내 순번</span>
               </div>
             </div>
-
             <div className={styles.waitGoodBadge}>
               <CheckCircle2 size={15} />
               지금 방문하기 좋은 시간이에요
@@ -163,18 +169,11 @@ export default function Home({ onBookingClick }) {
         <section>
           <div className={styles.sectionHeader} style={{ padding: '0 var(--spacing-4)', marginBottom: 'var(--spacing-4)', marginTop: 'var(--spacing-5)' }}>
             <span className={styles.sectionTitle}>건강 팁</span>
-            <button className={styles.sectionMore}>
-              더보기 <ChevronRight size={14} />
-            </button>
+            <button className={styles.sectionMore}>더보기 <ChevronRight size={14} /></button>
           </div>
-
           <div className={styles.tipScroll}>
             {TIPS.map((tip) => (
-              <div
-                key={tip.title}
-                className={styles.tipCard}
-                style={{ backgroundColor: tip.bg, color: tip.color }}
-              >
+              <div key={tip.title} className={styles.tipCard} style={{ backgroundColor: tip.bg, color: tip.color }}>
                 <span className={styles.tipTag}>{tip.tag}</span>
                 <p className={styles.tipTitle} style={{ whiteSpace: 'pre-line' }}>{tip.title}</p>
                 <p className={styles.tipDesc}>{tip.desc}</p>

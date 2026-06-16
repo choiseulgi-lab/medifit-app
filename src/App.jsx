@@ -19,10 +19,13 @@ export default function App() {
   const [screen, setScreen] = useState('home');
   const [tab, setTab]       = useState('home');
 
-  const [member, setMember]     = useState(null);   // 예약자 (가족 구성원)
-  const [symptoms, setSymptoms] = useState([]);
-  const [dept, setDept]         = useState(null);
-  const [hospital, setHospital] = useState(null);
+  const [member, setMember]         = useState(null);
+  const [memberNext, setMemberNext] = useState('symptom'); // MemberSelect 이후 목적지
+  const [symptoms, setSymptoms]     = useState([]);
+  const [duration, setDuration]     = useState(null);
+  const [intensity, setIntensity]   = useState(3);
+  const [dept, setDept]             = useState(null);
+  const [hospital, setHospital]     = useState(null);
 
   const go = (next) => setScreen(next);
 
@@ -35,22 +38,36 @@ export default function App() {
     if (key === 'mypage')   go('mypage');
   };
 
+  /* MemberSelect에서 구성원 선택 후 목적지로 이동 */
+  const handleMemberSelect = (m) => {
+    setMember(m);
+    go(memberNext);
+  };
+
   const showNav = TABS_WITH_NAV.includes(screen);
 
   return (
     <>
       {screen === 'home' && (
-        <Home onBookingClick={() => go('memberSelect')} />
+        <Home
+          /* AI 경로: 지금 예약하기 */
+          onBookingClick={() => {
+            setMemberNext('symptom');
+            go('memberSelect');
+          }}
+          /* 빠른 진료과 경로 */
+          onDeptClick={(d) => {
+            setDept(d);
+            setMemberNext('hospitalList');
+            go('memberSelect');
+          }}
+        />
       )}
 
-      {/* ① 예약자 선택 → 증상 선택으로 진입 */}
       {screen === 'memberSelect' && (
         <MemberSelect
           onBack={() => go('home')}
-          onSelect={(m) => {
-            setMember(m);
-            go('symptom');
-          }}
+          onSelect={handleMemberSelect}
         />
       )}
 
@@ -60,6 +77,8 @@ export default function App() {
           onBack={() => go('memberSelect')}
           onNext={(data) => {
             setSymptoms(data.symptoms);
+            setDuration(data.duration);
+            setIntensity(data.intensity);
             go('recommend');
           }}
         />
@@ -79,10 +98,14 @@ export default function App() {
       {screen === 'hospitalList' && (
         <HospitalList
           dept={dept}
-          onBack={() => go('recommend')}
-          onSelect={(h) => {
+          onBack={() => go(memberNext === 'hospitalList' ? 'memberSelect' : 'recommend')}
+          onSelect={(h) => {        // 카드 본문 클릭 → 상세
             setHospital(h);
             go('hospitalDetail');
+          }}
+          onBook={(h) => {          // 예약하기 버튼 → 바로 예약
+            setHospital(h);
+            go('booking');
           }}
         />
       )}
@@ -99,6 +122,9 @@ export default function App() {
         <BookingPage
           hospital={hospital}
           member={member}
+          symptoms={symptoms}
+          duration={duration}
+          intensity={intensity}
           onBack={() => go('hospitalDetail')}
           onDone={() => {
             setTab('bookings');
@@ -126,7 +152,7 @@ export default function App() {
         />
       )}
 
-      {screen === 'health' && <HealthPage />}
+      {screen === 'health'  && <HealthPage />}
       {screen === 'mypage'  && <MyPage />}
 
       {showNav && (
